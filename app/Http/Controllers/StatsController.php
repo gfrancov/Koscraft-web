@@ -79,19 +79,27 @@ class StatsController extends Controller
     public static function getLastLogin($uuid) {
         $userStats = Stats::where('uuid','=',$uuid)->first();
 
-        $arrActivity = explode("|", $userStats->Activity);
-        $lastLogin = "";
+        if($userStats == null) {
+
+            return 'Indefinido';
+
+        } else {
+
+            $arrActivity = explode("|", $userStats->Activity);
+            $lastLogin = "";
+            
+            foreach($arrActivity as $item) {
         
-        foreach($arrActivity as $item) {
-	
-            $secondItem = explode(":",$item);
-            if($secondItem[0] == 'Times_Left.last_date') {
-                $lastLogin = str_replace("Times_Left.last_date:", "", $item);
+                $secondItem = explode(":",$item);
+                if($secondItem[0] == 'Times_Left.last_date') {
+                    $lastLogin = str_replace("Times_Left.last_date:", "", $item);
+                }
+    
             }
-
+    
+            return $lastLogin;
+    
         }
-
-        return $lastLogin;
     }
 
     public static function getAllStats($uuid) {
