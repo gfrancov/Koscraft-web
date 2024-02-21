@@ -12,14 +12,40 @@
                 <div class="text-right">
                     <h1 class=" flex justify-center items-center text-white text-4xl font-semibold font-inter">
                         @switch($usuario->rank)
-                        @case('admin')
-                            <span class="text-red-700 font-extrabold mr-5 text-3xl">ADMIN</span>
+                        @case('dueño')
+                            <span class="text-red-700 font-extrabold mr-5 text-3xl">OWNER</span>
                             @break
-                    
-                        @case('developer')
+
+                        @case('administrador')
+                            <span class="text-red-400 font-extrabold mr-5 text-3xl">ADMIN</span>
+                            @break
+
+                        @case('moderador')
+                            <span class="text-sky-700 font-extrabold mr-5 text-3xl">MOD</span>
+                            @break
+
+                        @case('ayudante')
+                            <span class="text-sky-400 font-extrabold mr-5 text-3xl">HELP</span>
+                            @break
+                        @case('twitch')
+                            <span class="text-purple-600 font-extrabold mr-5 text-3xl">TWITCH</span>
+                            @break
+                        @case('kratos')
+                            <span class="text-fuchsia-700 font-extrabold mr-5 text-3xl">KRATOS</span>
+                            @break
+                        @case('zeus')
+                            <span class="text-amber-500 font-extrabold mr-5 text-3xl">ZEUS</span>
+                            @break
+                        @case('poseidon')
+                            <span class="text-teal-600 font-extrabold mr-5 text-3xl">POSEIDON</span>
+                            @break
+                        @case('ares')
+                            <span class="text-green-400 font-extrabold mr-5 text-3xl">ARES</span>
+                            @break
+                        @case('desarrollador')
                             <span class="text-green-500 font-extrabold mr-5 text-3xl">DEV</span>
                             @break
-                    
+
                         @default
                             <p></p> 
                     @endswitch
@@ -59,7 +85,7 @@
 
     </section>
         @if($rangoUsuarioLog !== null)
-            @if ($rangoUsuarioLog == 'developer' || $rangoUsuarioLog == 'admin')
+            @if ($rangoUsuarioLog == 'dueño' || $rangoUsuarioLog == 'desarrollador')
                 
         <section class="mx-5 mb-12 flex justify-center items-center pt-12">
             

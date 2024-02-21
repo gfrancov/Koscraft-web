@@ -75,7 +75,7 @@ class UserController extends Controller
 
         if( auth()->check() ) {
   
-            if(PermsController::getRank(auth()->user()->uuid) == 'admin' || PermsController::getRank(auth()->user()->uuid) == 'developer' ) {
+            if(PermsController::getRank(auth()->user()->uuid) == 'dueño' || PermsController::getRank(auth()->user()->uuid) == 'desarrollador' ) {
 
                 $posts = Blog::all();
 
@@ -124,6 +124,9 @@ class UserController extends Controller
 
     public function verPerfil($nickname) {
         $usuario = User::where('nickname', '=', $nickname)->first();
+        if($usuario == null) {
+            return redirect()->to('/');
+        } 
         $milliseconds = StatsController::getTotalTimePlayed($usuario->uuid);
         if($milliseconds == "") {
             $usuario->timeplayed = "0 horas jugadas";    
@@ -293,7 +296,7 @@ class UserController extends Controller
 
         if( auth()->check() ) {
   
-            if(PermsController::getRank(auth()->user()->uuid) == 'admin' || PermsController::getRank(auth()->user()->uuid) == 'developer' ) {
+            if(PermsController::getRank(auth()->user()->uuid) == 'dueño' || PermsController::getRank(auth()->user()->uuid) == 'desarrollador' ) {
 
                 $premios = PremiosController::getAllPremios();
 

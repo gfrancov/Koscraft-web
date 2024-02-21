@@ -28,7 +28,7 @@
                         <img src="https://mc-heads.net/head/{{$user->nickname}}/50">
                         <div class="flex flex-col justify-center ml-4">
                             <p class="text-md font-inter text-white font-bold">{{$user->nickname}}</p>
-                            <p class="text-sm font-inter font-light text-zinc-200">{{$user->timeplayed}}</p>
+                            <p class="text-sm font-inter font-light text-zinc-200">{{$user->points}} puntos</p>
                         </div>
                     </a>
                 @endforeach
