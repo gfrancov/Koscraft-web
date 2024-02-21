@@ -11,7 +11,12 @@ class PermsController extends Controller
 {
     public static function getRank($uuid) {
         $getUser = Perms::where('uuid', '=',$uuid)->first();
-        return $getUser->primary_group;
+        
+        if($getUser == null) {
+            return 'default';
+        } else {
+            return $getUser->primary_group;
+        }
     }
 
     public static function insertPermission($uuid, $permission) {

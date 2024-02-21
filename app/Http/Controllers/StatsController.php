@@ -22,16 +22,20 @@ class StatsController extends Controller
 
         $userStats = Stats::where('uuid','=',$uuid)->first();
 
-        $arrActivity = explode("|", $userStats->Activity);
-        $timeplayed = "";
+        if($userStats == null) {
+            $timeplayed = 0;
+        } else {
+            $arrActivity = explode("|", $userStats->Activity);
+            $timeplayed = "";
+            
+            foreach($arrActivity as $item) {
         
-        foreach($arrActivity as $item) {
-	
-            $secondItem = explode(".",$item);
-            if($secondItem[0] == 'Time_Played') {
-                $timeplayed = explode(":",$secondItem[1])[1];
+                $secondItem = explode(".",$item);
+                if($secondItem[0] == 'Time_Played') {
+                    $timeplayed = explode(":",$secondItem[1])[1];
+                }
+            
             }
-        
         }
 
         return $timeplayed;
@@ -42,28 +46,33 @@ class StatsController extends Controller
 
         $userStats = Stats::where('uuid','=',$uuid)->first();
 
-        $arrActivity = explode("|", $userStats->Activity);
-        $time = "";
-        $hours = 0;
-        
-        foreach($arrActivity as $item) {
-	
-            $secondItem = explode(".",$item);
-            if($secondItem[0] == 'Time_Played') {
-                $time = explode(":",$secondItem[1])[1];
-            }
-        
-        }
-
-        if($time == "") {
-            $hours = 0;    
+        if($userStats == null) {
+            return 0;
         } else {
-            $seconds = floor($time / 1000);
-            $minutes = floor($seconds / 60);
-            $hours = floor($minutes / 60);
-        }
+            $arrActivity = explode("|", $userStats->Activity);
+            $time = "";
+            $hours = 0;
+            
+            foreach($arrActivity as $item) {
+        
+                $secondItem = explode(".",$item);
+                if($secondItem[0] == 'Time_Played') {
+                    $time = explode(":",$secondItem[1])[1];
+                }
+            
+            }
+    
+            if($time == "") {
+                $hours = 0;    
+            } else {
+                $seconds = floor($time / 1000);
+                $minutes = floor($seconds / 60);
+                $hours = floor($minutes / 60);
+            }
+    
+            return $hours;    
 
-        return $hours;
+        }
 
     }
 

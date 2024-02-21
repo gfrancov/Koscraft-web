@@ -48,8 +48,8 @@ class UserController extends Controller
     }
 
     public function landing() {
-        $users = User::orderBy('points')->limit(10)->get();
-        $posts = Blog::orderBy('created_at', 'desc')->limit(3)->get();
+        $users = User::orderBy('points', 'desc')->limit(5)->get();
+        $posts = Blog::orderBy('created_at', 'asc')->limit(3)->get();
         foreach($users as $user) {
             $milliseconds = StatsController::getTotalTimePlayed($user->uuid);
             if($milliseconds == "") {
@@ -327,12 +327,6 @@ class UserController extends Controller
     public function borrarPremio(Request $request) {
         Premios::where('id','=',$request->input('premio-borrar'))->delete();
         return redirect()->to('/gestion');
-    }
-
-    public function statsTops() {
-
-        
-
     }
 
 
