@@ -107,31 +107,32 @@ class StatsController extends Controller
         $userStats = Stats::where('uuid','=',$uuid)->first();
         $totalKills = 0;
         $totalDeaths = 0;
+        $kdr = 0;
 
         // Kills
-        $arrKills = explode("|", $userStats->Kills);
-        foreach($arrKills as $item) {
+        if($userStats != null) {
+            $arrKills = explode("|", $userStats->Kills);
+            foreach($arrKills as $item) {
 	
-            $secondItem = explode(":",$item);
-            if($secondItem[0] == 'Players_Killed.amount') {
-                $totalKills = str_replace("Players_Killed.amount:", "", $item);
+                $secondItem = explode(":",$item);
+                if($secondItem[0] == 'Players_Killed.amount') {
+                    $totalKills = str_replace("Players_Killed.amount:", "", $item);
+                }
+    
             }
-
-        }
-
-        $arrDeaths = explode("|", $userStats->Deaths);
-        foreach($arrDeaths as $item) {
-            $secondItem = explode(":",$item);
-            if($secondItem[0] == 'Deaths_By_Player.amount') {
-                $totalDeaths = str_replace("Deaths_By_Player.amount:", "", $item);
+            $arrDeaths = explode("|", $userStats->Deaths);
+            foreach($arrDeaths as $item) {
+                $secondItem = explode(":",$item);
+                if($secondItem[0] == 'Deaths_By_Player.amount') {
+                    $totalDeaths = str_replace("Deaths_By_Player.amount:", "", $item);
+                }
+    
             }
-
-        }
-
-        if($totalDeaths == 0) {
-            $kdr = $totalKills;
-        } else {
-            $kdr = $totalKills/$totalDeaths;
+            if($totalDeaths == 0) {
+                $kdr = $totalKills;
+            } else {
+                $kdr = $totalKills/$totalDeaths;
+            }
         }
         
         return [
